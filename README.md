@@ -26,12 +26,25 @@ shorturl/
 ├── cmd/shorturl/            # 服务入口（main.go）
 ├── internal/
 │   ├── handler/             # Gin 路由 / 控制器
+│   │   ├── redirect_handler.go
+│   │   └── shorten_handler.go
 │   ├── model/               # GORM 模型
 │   ├── repo/                # 数据层
 │   ├── service/             # 业务逻辑
 │   └── util/shortid/        # 短码生成器
-├── k8s/                     # 容器编排 yaml（后续补充）
+├── pkg/cache/               # Redis 客户端
+│   └── redis.go
 ├── scripts/                 # 一键脚本
+│   └── dev-up.bat           # Windows 一键起服务
+├── k8s/                     # 容器编排 yaml
 ├── go.mod & go.sum
 └── README.md
 ```
+
+### 一键脚本 
+
+`scripts/dev-up.bat`
+
+### 压测结果
+
+wrk 压测 **9.5 万 QPS / 12.9 ms P99**
