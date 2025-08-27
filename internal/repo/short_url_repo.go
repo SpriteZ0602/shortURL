@@ -20,3 +20,12 @@ func (r *ShortURLRepo) FindByLong(url string) (*model.ShortURL, error) {
 	}
 	return &s, err
 }
+
+func (r *ShortURLRepo) FindByCode(code string) (*model.ShortURL, error) {
+	var su model.ShortURL
+	err := r.db.Where("short_code = ?", code).First(&su).Error
+	if errors.Is(err, gorm.ErrRecordNotFound) {
+		return nil, nil
+	}
+	return &su, err
+}

@@ -29,5 +29,6 @@ func main() {
 
 	r := gin.Default()
 	r.POST("/api/v1/shorten", h.Shorten)
+	r.GET("/:code", handler.NewRedirect(repo))
 	r.Run(":8080")
 }
