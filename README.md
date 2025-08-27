@@ -22,12 +22,12 @@ go run cmd/shorturl/main.go
 ### 骨架
 
 shorturl
-├── cmd/shorturl        # 服务入口
+├── cmd/shorturl	   # 服务入口
 ├── internal
-│   ├── model           # GORM 模型
-│   ├── repo            # 数据层
-│   └── service         # 业务逻辑
-├── api                 # Gin 路由
-├── k8s                 # 容器编排 yaml
-├── scripts             # 一键脚本
+│   ├── model		# GORM 模型
+│   ├── repo       	   # 数据层
+│   └── service    	  # 业务逻辑
+├── api              	    # Gin 路由
+├── k8s                 	# 容器编排 yaml
+├── scripts            	# 一键脚本
 └── README.md
