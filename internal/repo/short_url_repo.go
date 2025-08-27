@@ -2,8 +2,9 @@ package repo
 
 import (
 	"errors"
-	"gorm.io/gorm"
 	"shortURL/internal/model"
+
+	"gorm.io/gorm"
 )
 
 type ShortURLRepo struct{ db *gorm.DB }

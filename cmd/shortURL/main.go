@@ -1,8 +1,6 @@
 package main
 
 import (
-	"gorm.io/driver/mysql"
-	"gorm.io/gorm"
 	"log"
 	"shortURL/internal/handler"
 	"shortURL/internal/model"
@@ -11,6 +9,8 @@ import (
 	"shortURL/internal/util/shortID"
 
 	"github.com/gin-gonic/gin"
+	"gorm.io/driver/mysql"
+	"gorm.io/gorm"
 )
 
 func main() {

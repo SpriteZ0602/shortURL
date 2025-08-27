@@ -1,10 +1,11 @@
 package handler
 
 import (
-	"github.com/gin-gonic/gin"
 	"log"
 	"net/http"
 	"shortURL/internal/service"
+
+	"github.com/gin-gonic/gin"
 )
 
 type ShortHandler struct{ svc *service.ShortService }
