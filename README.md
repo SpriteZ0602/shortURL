@@ -24,20 +24,20 @@ go run cmd/shorturl/main.go
 
 ```bash
 shorturl/
-├── cmd/shorturl/            # 服务入口（main.go）
+├── cmd/shorturl/            # main.go
 ├── internal/
-│   ├── handler/             # Gin 路由 / 控制器
-│   │   ├── redirect_handler.go
-│   │   └── shorten_handler.go
+│   ├── handler/             # 路由（auth / shorten / redirect）
+│   ├── middleware/			# 中间件（jwt）
 │   ├── model/               # GORM 模型
 │   ├── repo/                # 数据层
 │   ├── service/             # 业务逻辑
 │   └── util/shortid/        # 短码生成器
-├── pkg/cache/               # Redis 客户端
-│   └── redis.go
-├── scripts/                 # 一键脚本
-│   └── dev-up.bat           # Windows 一键起服务
-├── k8s/                     # 容器编排 yaml
+├── pkg/
+│   ├── cache/               # Redis 客户端
+│   └── jwt/                 # JWT 工具
+├── scripts/
+│   └── dev-up.bat           # Windows 一键脚本
+├── k8s/                     # 暂未使用
 ├── go.mod & go.sum
 └── README.md
 ```
