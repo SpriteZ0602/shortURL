@@ -1,8 +1,9 @@
 # ShortURL - 云原生高性能短链服务
 
-把长网址压缩成 6 位短码，支持 10 万 QPS 重定向 + 实时 PV/UV 统计。
+把长网址压缩成 6 位短码，支持 10 万 QPS 重定向 + JWT 用户体系 + 实时 PV/UV 统计。
 
 ### 前置
+
 - Go 1.22+
 - Docker Desktop
 - MySQL & Redis 会自动拉镜像
@@ -53,7 +54,9 @@ wrk 压测 **9.5 万 QPS / 12.9 ms P99**
 
 ### 实现的服务
 
-| 方法     | 路径              | 示例请求                                  | 示例响应                  | 说明              |
-| -------- | ----------------- | ----------------------------------------- | ------------------------- | ----------------- |
-| **POST** | `/api/v1/shorten` | `{"url":"https://example.com/very/long"}` | `{"short_code":"aP0w9j"}` | 创建短链（幂等）  |
-| **GET**  | `/{short_code}`   | 浏览器访问 `http://localhost:8080/aP0w9j` | 302 → 原长网址            | 跳转 + Redis 缓存 |
+| 方法     | 路径               | 请求示例                                                     | 响应示例                   | 说明               |
+| -------- | ------------------ | ------------------------------------------------------------ | -------------------------- | ------------------ |
+| **POST** | `/api/v1/register` | `{"email":"a@b.com","password":"123456"}`                    | `{"message":"registered"}` | 用户注册           |
+| **POST** | `/api/v1/login`    | `{"email":"a@b.com","password":"123456"}`                    | `{"token":"jwt..."}`       | 登录拿 JWT         |
+| **POST** | `/api/v1/shorten`  | 头：`Authorization: Bearer <jwt>`<br>体：`{"url":"https://example.com"}` | `{"short_code":"aP0w9j"}`  | 创建短链（需登录） |
+| **GET**  | `/{short_code}`    | 浏览器访问 `http://localhost:8080/aP0w9j`                    | 302 → 原长网址             | 公开跳转           |
