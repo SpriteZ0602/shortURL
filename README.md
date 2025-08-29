@@ -1,6 +1,6 @@
 # ShortURL - 云原生高性能短链服务
 
-把长网址压缩成 6 位短码，支持 10 万 QPS 重定向 + JWT 用户体系 + 实时 PV/UV 统计。
+把长网址压缩成 11 位短码，支持 10 万 QPS 重定向 + JWT 用户体系 + 实时 PV/UV 统计。
 
 ### 前置
 
@@ -59,5 +59,5 @@ wrk 压测 **9.5 万 QPS / 12.9 ms P99**
 | -------- | ------------------ | ------------------------------------------------------------ | -------------------------- | ------------------ |
 | **POST** | `/api/v1/register` | `{"email":"a@b.com","password":"123456"}`                    | `{"message":"registered"}` | 用户注册           |
 | **POST** | `/api/v1/login`    | `{"email":"a@b.com","password":"123456"}`                    | `{"token":"jwt..."}`       | 登录拿 JWT         |
-| **POST** | `/api/v1/shorten`  | 头：`Authorization: Bearer <jwt>`<br>体：`{"url":"https://example.com"}` | `{"short_code":"aP0w9j"}`  | 创建短链（需登录） |
-| **GET**  | `/{short_code}`    | 浏览器访问 `http://localhost:8080/aP0w9j`                    | 302 → 原长网址             | 公开跳转           |
+| **POST** | `/api/v1/shorten`  | 头：`Authorization: Bearer <jwt>`<br>体：`{"url":"https://example.com"}` | `{"short_code":"5y4queDsELQ"}`  | 创建短链（需登录） |
+| **GET**  | `/{short_code}`    | 浏览器访问 `http://localhost:8080/5y4queDsELQ`                    | 302 → 原长网址             | 公开跳转           |
