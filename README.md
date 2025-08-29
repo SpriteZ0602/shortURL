@@ -27,13 +27,14 @@ shorturl/
 ├── cmd/shorturl/            # main.go
 ├── internal/
 │   ├── handler/             # 路由（auth / shorten / redirect）
-│   ├── middleware/			# 中间件（jwt）
+│   ├── middleware/          # 中间件（jwt）
 │   ├── model/               # GORM 模型
 │   ├── repo/                # 数据层
 │   ├── service/             # 业务逻辑
 │   └── util/shortid/        # 短码生成器
 ├── pkg/
 │   ├── cache/               # Redis 客户端
+│   ├── snowflake/           # 雪花 ID 生成器
 │   └── jwt/                 # JWT 工具
 ├── scripts/
 │   └── dev-up.bat           # Windows 一键脚本
