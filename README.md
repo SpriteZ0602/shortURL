@@ -62,3 +62,8 @@ wrk 压测 **9.5 万 QPS / 12.9 ms P99**
 | **POST** | `/api/v1/login`    | `{"email":"a@b.com","password":"123456"}`                    | `{"token":"jwt..."}`       | 登录拿 JWT         |
 | **POST** | `/api/v1/shorten`  | 头：`Authorization: Bearer <jwt>`<br>体：`{"url":"https://example.com"}` | `{"short_code":"5y4queDsELQ"}`  | 创建短链（需登录） |
 | **GET**  | `/{short_code}`    | 浏览器访问 `http://localhost:8080/5y4queDsELQ`                    | 302 → 原长网址             | 公开跳转           |
+
+### 分布式短码生成
+分布式 Snowflake + Etcd 
+用 Etcd 自动分配机器 ID，支持多实例无冲突发号。 
+单表可支持 100 亿条记录，QPS 可达 10 万 +。
