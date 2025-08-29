@@ -48,10 +48,6 @@ shorturl/
 
 `scripts/dev-up.bat`
 
-### 压测结果
-
-wrk 压测 **9.5 万 QPS / 12.9 ms P99**
-
 
 
 ### 实现的服务
