@@ -2,6 +2,6 @@ package model
 
 type ShortURL struct {
 	ID        uint   `gorm:"primaryKey"`
-	ShortCode string `gorm:"type:varchar(8);uniqueIndex"`
+	ShortCode string `gorm:"type:varchar(12);uniqueIndex"`
 	LongURL   string `gorm:"type:varchar(2048)"`
 }

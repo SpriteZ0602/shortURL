@@ -22,6 +22,8 @@ func (s *ShortService) Shorten(longURL string) (string, error) {
 	}
 
 	code := s.genID()
+	fmt.Println("generated short code:", code)
+	fmt.Println("length of short code:", len(code)) // 打印短码长度
 
 	if err := s.repo.Save(&model.ShortURL{ShortCode: code, LongURL: longURL}); err != nil {
 		fmt.Println("save short URL error:", err)

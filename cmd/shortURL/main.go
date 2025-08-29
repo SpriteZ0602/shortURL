@@ -8,7 +8,7 @@ import (
 	"shortURL/internal/repo"
 	userRepoPkg "shortURL/internal/repo"
 	"shortURL/internal/service"
-	"shortURL/internal/util/shortID"
+	"shortURL/pkg/snowflake"
 
 	"github.com/gin-gonic/gin"
 	"gorm.io/driver/mysql"
@@ -24,9 +24,14 @@ func main() {
 	if err := db.AutoMigrate(&model.ShortURL{}, &model.User{}); err != nil {
 		log.Fatal(err)
 	}
+	log.Println("start...")
+	if err := snowflake.Init(); err != nil {
+		log.Fatalf("snowflake init: %v", err)
+	}
+	log.Println("snowflake OK")
 
 	repo := repo.New(db)
-	svc := service.New(repo, shortID.New())
+	svc := service.New(repo, snowflake.Generate)
 	h := handler.New(svc)
 
 	userRepo := userRepoPkg.NewUser(db)
