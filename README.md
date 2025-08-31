@@ -13,6 +13,7 @@
 docker run -d --name mysql -e MYSQL_ROOT_PASSWORD=123456 -p 3306:3306 mysql:8
 docker run -d --name redis -p 6379:6379 redis:7-alpine
 docker run -d --name etcd -p 2379:2379 quay.io/coreos/etcd:v3.5.15 etcd --advertise-client-urls http://0.0.0.0:2379 --listen-client-urls http://0.0.0.0:2379
+docker run -d --name jaeger -p 16686:16686 -p 14268:14268 jaegertracing/all-in-one:latest
 ```
 
 ### 跑代码
