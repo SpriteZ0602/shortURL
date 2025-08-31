@@ -3,6 +3,7 @@
 package handler
 
 import (
+	"go.opentelemetry.io/otel"
 	"log"
 	"net/http"
 	"shortURL/internal/service"
@@ -15,6 +16,10 @@ type ShortHandler struct{ svc *service.ShortService }
 func New(s *service.ShortService) *ShortHandler { return &ShortHandler{svc: s} }
 
 func (h *ShortHandler) Shorten(c *gin.Context) {
+
+	ctx, span := otel.Tracer("shorturl").Start(c.Request.Context(), "handler.Shorten")
+	defer span.End()
+
 	var req struct {
 		URL string `json:"url" binding:"required"`
 	}
@@ -26,7 +31,7 @@ func (h *ShortHandler) Shorten(c *gin.Context) {
 	}
 
 	// 生成短链接
-	code, err := h.svc.Shorten(req.URL)
+	code, err := h.svc.Shorten(ctx, req.URL)
 	if err != nil {
 		log.Println("Shorten error:", err)
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})

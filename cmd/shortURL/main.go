@@ -8,6 +8,7 @@ import (
 	"shortURL/internal/repo"
 	"shortURL/internal/service"
 	"shortURL/pkg/snowflake"
+	"shortURL/pkg/trace"
 
 	"github.com/gin-gonic/gin"
 	"gorm.io/driver/mysql"
@@ -52,6 +53,11 @@ func main() {
 	r.POST("/api/v1/register", auth.Register)
 	r.POST("/api/v1/login", auth.Login)
 	r.GET("/:code", handler.NewRedirect(urlRepo))
+
+	// 添加链路追踪中间件
+	shutdown, _ := trace.Init("shorturl")
+	defer shutdown()
+	r.Use(middleware.Trace())
 
 	// 添加JWT中间件的路由
 	authorized := r.Group("/api/v1")
