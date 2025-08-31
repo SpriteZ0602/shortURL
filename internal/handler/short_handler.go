@@ -3,10 +3,12 @@
 package handler
 
 import (
-	"go.opentelemetry.io/otel"
 	"log"
 	"net/http"
+	"shortURL/internal/middleware"
 	"shortURL/internal/service"
+
+	"go.opentelemetry.io/otel"
 
 	"github.com/gin-gonic/gin"
 )
@@ -28,6 +30,15 @@ func (h *ShortHandler) Shorten(c *gin.Context) {
 	if err := c.ShouldBindJSON(&req); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
+	}
+
+	// 检查是否需要进行风险检查（通过中间件设置的标记）
+	if needCheck, exists := c.Get("needRiskCheck"); exists && needCheck.(bool) {
+		// 进行URL风险检查
+		if middleware.CheckURLRisk(req.URL) {
+			c.AbortWithStatusJSON(http.StatusForbidden, gin.H{"error": "blocked url"})
+			return
+		}
 	}
 
 	// 生成短链接

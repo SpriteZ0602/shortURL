@@ -61,7 +61,12 @@ func main() {
 
 	// 添加JWT中间件的路由
 	authorized := r.Group("/api/v1")
-	authorized.Use(middleware.JWT())
+	quotaMiddleware := middleware.NewQuota(100)
+	authorized.Use(
+		middleware.JWT(),
+		quotaMiddleware.Handler(),
+		middleware.RiskCheck(),
+	)
 	authorized.POST("/shorten", h.Shorten)
 
 	// 启动服务
