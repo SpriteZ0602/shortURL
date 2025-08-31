@@ -62,3 +62,15 @@ shorturl/
 分布式 Snowflake + Etcd 
 用 Etcd 自动分配机器 ID，支持多实例无冲突发号。 
 单表可支持 100 亿条记录，QPS 可达 10K+。
+
+### 可观测链路（OpenTelemetry + Jaeger）
+
+| Span 名称           | 说明                     | 耗时    |
+|---------------------|--------------------------|-------|
+| handler.Shorten     | 接收并解析请求           | 1 ms  |
+| service.Shorten     | 业务/雪花 ID 生成        | 90 ms |
+| repo.Save           | MySQL 插入               | 2 ms  |
+| handler.Redirect    | 302 跳转                 | 19 ms |
+| cache.Redis         | Redis 读写               | <1 ms |
+
+访问 **http://localhost:16686** 即可在 Jaeger UI 查看完整链路图。

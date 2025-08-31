@@ -17,7 +17,7 @@ import (
 // NewRedirect 重定向
 func NewRedirect(repo *repo.ShortURLRepo) gin.HandlerFunc {
 	return func(c *gin.Context) {
-		ctx, span := otel.Tracer("shorturl").Start(c.Request.Context(), "handler.Redirect")
+		ctx, span := otel.Tracer("redirect").Start(c.Request.Context(), "handler.Redirect")
 		defer span.End()
 		code := c.Param("code")
 
