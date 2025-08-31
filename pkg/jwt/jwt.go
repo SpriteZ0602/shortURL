@@ -13,6 +13,7 @@ type Claims struct {
 	jwt.RegisteredClaims
 }
 
+// Generate 生成 token
 func Generate(uid uint) (string, error) {
 	return jwt.NewWithClaims(jwt.SigningMethodHS256, Claims{
 		UserID: uid,
@@ -22,6 +23,7 @@ func Generate(uid uint) (string, error) {
 	}).SignedString(Secret)
 }
 
+// Parse 解析 token
 func Parse(token string) (*Claims, error) {
 	var claims Claims
 	_, err := jwt.ParseWithClaims(token, &claims, func(t *jwt.Token) (any, error) { return Secret, nil })

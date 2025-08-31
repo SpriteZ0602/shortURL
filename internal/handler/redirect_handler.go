@@ -1,3 +1,5 @@
+// 短链接重定向回调
+
 package handler
 
 import (
@@ -12,6 +14,7 @@ import (
 	"github.com/redis/go-redis/v9"
 )
 
+// NewRedirect 重定向
 func NewRedirect(repo *repo.ShortURLRepo) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		code := c.Param("code")
@@ -19,6 +22,7 @@ func NewRedirect(repo *repo.ShortURLRepo) gin.HandlerFunc {
 
 		// 1. 先查 Redis
 		longURL, err := cache.RDB.Get(ctx, "short:"+code).Result()
+
 		if errors.Is(err, redis.Nil) { // key 不存在
 			// 2. 回源 MySQL
 			su, err := repo.FindByCode(code)

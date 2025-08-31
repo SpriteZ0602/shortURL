@@ -31,8 +31,7 @@ shorturl/
 │   ├── middleware/          # 中间件（jwt）
 │   ├── model/               # GORM 模型
 │   ├── repo/                # 数据层
-│   ├── service/             # 业务逻辑
-│   └── util/shortid/        # 短码生成器
+│   └── service/             # 业务逻辑
 ├── pkg/
 │   ├── cache/               # Redis 客户端
 │   ├── snowflake/           # 雪花 ID 生成器
